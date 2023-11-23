@@ -37,11 +37,19 @@ namespace TodoApp.Models
 
         public override string[] GetRolesForUser(string username)
         {
-            if ("administrator".Equals(username))
+            using (var db = new TodoesContext())
             {
-                return new string[] { "Administrators" };
+                var user = db.Users
+                    .Where(u => u.UserName == username)
+                    .FirstOrDefault();
+
+                if (user != null)
+                {
+                    return user.Roles.Select(role => role.RoleName).ToArray();
+                }
             }
-            return new string[] { "Users" };
+
+            return new string[] { };
         }
 
         public override string[] GetUsersInRole(string roleName)
@@ -51,15 +59,8 @@ namespace TodoApp.Models
 
         public override bool IsUserInRole(string username, string roleName)
         {
-            if("administrator".Equals(username) && "Administrators".Equals(roleName))
-            {
-                return true;
-            }
-            if("user".Equals(username) && "Users".Equals(roleName))
-            {
-                return true;
-            }
-            return false;
+            string[] roles = this.GetRolesForUser(username);
+            return roles.Contains(roleName);
         }
 
         public override void RemoveUsersFromRoles(string[] usernames, string[] roleNames)
