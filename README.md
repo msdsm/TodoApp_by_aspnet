@@ -98,9 +98,34 @@
         - `ModelState.IsValid`がfalseを返している
         - `thies.membershipProvider.ValidateUesr(model.UserName, model.Password`がfalseを返している
     - 解決した
-        - `Include = "UserName.Password"`ではなく`Include = "UserName,Password"`だった 
+        - `Include = "UserName.Password"`ではなく`Include = "UserName,Password"`だった
 
-## 構造
+### 認証情報のEntityframework
+- `Role.cs`,`User.cs`作成
+- `TodoesContext.cs`編集
+- `CustomerMemvershipProvider.cs`と`CustomRoleProvider.cs`編集
+    - 固定のユーザー名とパスワードで認証していた
+    - データベースにアクセスして認証するように変更する
+- マイグレーションの設定(UserやRoleなど変更した際にデータベースが自動で変更される仕組み)
+    - ツール->Nugetパッケージ->パッケージマネージャーコンソール
+    - `Enable-Migrations -EnableAutomaticMigrations`
+    - エラーメッセージ？`initialcreateが見つからない？`
+    - `Migrations/Configuration.cs`が作成される
+- `Migrations/COnfiguration.cs`編集
+    - `Seed`を変更していく
+        - マイグレーション時に最初に呼ばれる関数？
+        - 各カラムの値の初期化を行う
+- `Global.asax.cs/Global.asax.cs`を編集
+    - このファイルの`App_Start`がTodoアプリを起動したときに最初に呼ばれる関数
+- 動作確認してうまくログインできていることを確認した
+
+### ユーザー管理機能の実装
+
+
+
+
+
+### 構造
 - App_start
     - `RouteConfig.cs`
 - Controllers
