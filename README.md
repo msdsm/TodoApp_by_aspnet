@@ -167,53 +167,38 @@
     - `RouteConfig.cs`
 - Controllers
     - `TodoesControllers.cs`
+    - `LoginController.cs`
+    - `UsersController.cs`
 - Models
-    - `Todo.cs`
     - `TodoesContext.cs`
+    - `Todo.cs`
+    - `User.cs`
+    - `Role.cs`
     - `CustomMembershipProvider.cs`
     - `CustomRoleProvider.cs`
     - `LoginViewModel.cs`
-    - ``
+    - `UserEditViewModel.cs`
 - Views
     - Todoes
         - `Create.cshtml`
-         `Delete.cshtml`
+        - `Delete.cshtml`
+        - `Details.cshtml`
+        - `Edit.cshtml`
+        - `Index.cshtml`
+    - Users
+        - `Create.cshtml`
+        - `Delete.cshtml`
         - `Details.cshtml`
         - `Edit.cshtml`
         - `Index.cshtml`
     - `_LayoutPage1.cshtml`
-        - linkタグでbootstrap読み込む
-        - divタグにcontainer追加(左右に適切な余白を作るため)
+- Migrations
+    - `Configuration.cs`
+
+- `Web.config`
 
 
-## ソースコード説明
 
-### App_startRouteConfig.cs
-- ルーティングを行う
-### Controllers/TodoesControllers.cs
-### Models/Todo.cs
-- データ構造定義
-- 変数名とは別に`DisplayName`で表示名を変更可能
-### Models/TodoesContext.cs
-### Views/Todoes/Todoes/Create.cshtml
-### Views/Todoes/Delete.cshtml
-### Views/Todoes/Details.cshtml
-### Views/Todoes/Edit.cshtml
-### Views/Todoes/Index.cshtml
-### Views/_LayoutPage1.cshtml
-- @で始まるところはサーバーサイドで実行
-- 共通レイアウトを設定している
-- Views/Todoes/*.cshtmlのソースコードを見ると、この共通レイアウトを読み込んでいる
-
-### Models/CustomMembershipProvider.cs
-### Models/CustomRoleProvider.cs
-
-### Models/LoginViewModel.cs
-- ログインのためのデータ定義
-    - password
-    - username
-
-### Controllers/LoginController.cs
 
 ## セキュリティ対策
 
