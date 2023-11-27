@@ -23,5 +23,7 @@ namespace TodoApp.Models
         [DisplayName("完了")]
         public bool Done {  get; set; }
 
+        public virtual User User { get; set; }
+
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.Security;
 
@@ -109,10 +110,10 @@ namespace TodoApp.Models
         {
             using (var db = new TodoesContext())
             {
-                //string hash = this.GeneratePasswordHash(username, password);
+                string hash = this.GeneratePasswordHash(username, password);
 
                 var user = db.Users
-                    .Where(u => u.UserName == username && u.Password == password)
+                    .Where(u => u.UserName == username && u.Password == hash)
                     .FirstOrDefault();
 
                 if (user != null)
@@ -121,7 +122,20 @@ namespace TodoApp.Models
                 }
             }
 
+
             return false;
+        }
+
+        public string GeneratePasswordHash(string username, string password)
+        {
+            string rawSalt = $"secret_{username}";
+            var sha256 = new SHA256CryptoServiceProvider();
+            var salt = sha256.ComputeHash(System.Text.Encoding.UTF8.GetBytes(rawSalt));
+
+            var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 10000);
+            var hash = pbkdf2.GetBytes(32);
+
+            return Convert.ToBase64String(hash);
         }
     }
 }

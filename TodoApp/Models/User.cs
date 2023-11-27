@@ -25,12 +25,14 @@ namespace TodoApp.Models
 
         public virtual ICollection<Role> Roles { get; set; }
 
-        /*
+
         [NotMapped]
         [DisplayName("ロール")]
         public List<int> RoleIds { get; set; }
 
+        //public virtual ICollection<Todo> Todoes { get; set; }
+
         public virtual ICollection<Todo> Todoes { get; set; }
-        */
+
     }
 }
